@@ -22,13 +22,12 @@ class GameManager{
             Business bikeRental; // id = 6
             BankAccount account; // add back in once BankAccount is integrated
                 //Manager assignedManager
+        
         public:
                 GameManager(); // the constructor
                 ~GameManager(); // the deconstructor
-                void upgradeBusiness(int businessID); // upgrades the business if the funds are available
-                void runBusiness(int businessID); // runs the business and stores the revenue in the bank account
+                double upgradeBusiness(int businessID); // upgrades the business if the funds are available
+                double runBusiness(int businessID); // runs the business and stores the revenue in the bank account
 }; // end class
 
 #endif // !
-
-
