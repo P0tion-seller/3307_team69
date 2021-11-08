@@ -23,6 +23,7 @@ BankAccount account();
 // Initialize UI
 // RAOUF WOULD Integrate here
 
+
 /**
  * @brief Construct a new Game Manager:: Game Manager object
  */
@@ -47,10 +48,10 @@ GameManager::~GameManager(){
 
 /**
  * @brief Takes the business id, and updates the according business if the funds are available
- * 
+ * @return returns the new balance
  * @param businessID 
  */
-void GameManager::upgradeBusiness(int businessID){
+double GameManager::upgradeBusiness(int businessID){
     Business temp; // the temporary business
 
     // Set the business we are working on
@@ -73,12 +74,12 @@ void GameManager::upgradeBusiness(int businessID){
         case 6:
             temp = bikeRental;
     } // end switch
-
+    int cost = temp.costToUpgrade(temp.getBusinessLevel() + 1);
     // if we have the funds, buy the upgrade
-    if(temp.costToUpgrade(temp.getBusinessLevel()) <= account.getBalance()){
+    if(cost <= account.getBalance()){
         //std::cout << temp.getBusinessLevel() << std::endl;    
         //std::cout << account.getBalance() << std::endl;   
-        account.withdraw(temp.costToUpgrade(temp.getBusinessLevel() + 1));
+        account.withdraw(cost);
         temp.upgradeBusiness(temp.getBusinessLevel() + 1);
         //std::cout << temp.getBusinessLevel() << std::endl;
         //std::cout << account.getBalance() << std::endl;   
@@ -106,14 +107,15 @@ void GameManager::upgradeBusiness(int businessID){
     } // end switch
 
     // ==COULD CALL UPDATE() HERE TO SHOW CHANGE IN BANK ACCOUNT==
-
+    return account.getBalance();
 } // end method
 
 /**
  * @brief Runs the business, storing the revenue in the bank account
  * @param businessID 
+ * @return returns the new balance
  */
-void GameManager::runBusiness(int businessID){ // ADD BACK IN ONCE BankAccount IS INTEGRATED
+double GameManager::runBusiness(int businessID){ // ADD BACK IN ONCE BankAccount IS INTEGRATED
     Business temp;
     switch(businessID){
         case 1:
@@ -140,7 +142,7 @@ void GameManager::runBusiness(int businessID){ // ADD BACK IN ONCE BankAccount I
     //std::cout << account.getBalance() << std::endl;
 
     // ==COULD CALL UPDATE() HERE TO SHOW CHANGE IN BANK ACCOUNT==
-
+    return account.getBalance();
 } // end method
 
 /* ==HERE YOU COULD ADD SOME KIND OF UPDATE METHOD TO UPDATE THE UI (SUCH AS AMOUNT OF MONEY IN BANK)== */
